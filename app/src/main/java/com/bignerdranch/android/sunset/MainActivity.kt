@@ -80,6 +80,12 @@ class MainActivity : AppCompatActivity() {
             .setDuration(1500)
         nightSkyAnimator.setEvaluator(ArgbEvaluator())
 
+        // BASED ON A CHALLENGE.
+        val heatX = 0
+        val heatY = 0
+
+        val heatAnimator = ObjectAnimator
+
 
         /** This is a simpler Implementation of animator.start() in which we will start all the animation at the same time. **/
 
