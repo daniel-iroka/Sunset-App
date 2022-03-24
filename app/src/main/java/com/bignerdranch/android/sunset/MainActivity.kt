@@ -14,6 +14,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var sunView: View
     private lateinit var skyView: View
 
+    private var sunState : Boolean = true
+
+
     private val blueSkyColor: Int by lazy {
         ContextCompat.getColor(this, R.color.blue_sky)
     }
@@ -24,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     private val nightSkyColor: Int by lazy {
         ContextCompat.getColor(this, R.color.night_sky)
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +40,17 @@ class MainActivity : AppCompatActivity() {
         skyView = findViewById(R.id.sky)
 
         sceneView.setOnClickListener {
+            animation()
+        }
+    }
+
+    private fun animation() {
+        sunState = if (sunState) {
             startAnimation()
+            false // will reverse the value
+        } else {
+            reverseAnimation()
+            true // and so on
         }
     }
 
@@ -74,5 +88,38 @@ class MainActivity : AppCompatActivity() {
             .with(sunsetSkyAnimator)
             .before(nightSkyAnimator)
         animatorSet.start()
+    }
+
+    // Our reverse animation. COURSE CHALLENGE.
+    private fun reverseAnimation() {
+
+        /** Second animator set **/
+
+        val sunYStart = sunView.top.toFloat()
+        val sunYEnd = skyView.height.toFloat()
+
+        val heightAnimator2 = ObjectAnimator
+            .ofFloat(sunView, "y", sunYEnd, sunYStart)
+            .setDuration(3000)
+        heightAnimator2.interpolator = AccelerateInterpolator()
+
+
+        val sunsetSkyAnimator2 = ObjectAnimator
+            .ofInt(skyView, "backgroundColor", blueSkyColor, sunsetSkyColor)
+            .setDuration(3000)
+        sunsetSkyAnimator2.setEvaluator(ArgbEvaluator())
+
+
+        val blueSkyColor = ObjectAnimator
+            .ofInt(skyView, "backgroundColor", sunsetSkyColor, blueSkyColor)
+            .setDuration(1500)
+        blueSkyColor.setEvaluator(ArgbEvaluator())
+
+        val animatorSet2 = AnimatorSet()
+        animatorSet2.play(heightAnimator2)  // play heightAnimator with sunsetSky, also play heightAnimator before blueSky
+            .with(sunsetSkyAnimator2)
+            .before(blueSkyColor)
+
+        animatorSet2.start()
     }
 }
