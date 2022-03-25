@@ -3,11 +3,15 @@ package com.bignerdranch.android.sunset
 import android.animation.AnimatorSet
 import android.animation.ArgbEvaluator
 import android.animation.ObjectAnimator
+import android.animation.PropertyValuesHolder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.animation.AccelerateInterpolator
 import androidx.core.content.ContextCompat
+
+private const val TAG = "MainActivity"
 
 class MainActivity : AppCompatActivity() {
     private lateinit var sceneView : View
@@ -80,11 +84,22 @@ class MainActivity : AppCompatActivity() {
             .setDuration(1500)
         nightSkyAnimator.setEvaluator(ArgbEvaluator())
 
+
+
+
         // BASED ON A CHALLENGE.
-        val heatX = 0
-        val heatY = 0
+        val sunYHeatStart = 0f
+        val sunYHeatEnd = 360f
 
         val heatAnimator = ObjectAnimator
+            .ofFloat(sunView, "rotation", sunYHeatStart, sunYHeatEnd)
+            .setDuration(900)
+
+        // to get the values of the current pivotX and pivotY
+        Log.i(TAG, "SunView pivotX ${sunView.pivotX} and pivotY is ${sunView.pivotY}")
+
+        heatAnimator.repeatCount = ObjectAnimator.INFINITE
+        heatAnimator.interpolator = AccelerateInterpolator()
 
 
         /** This is a simpler Implementation of animator.start() in which we will start all the animation at the same time. **/
@@ -92,6 +107,7 @@ class MainActivity : AppCompatActivity() {
         val animatorSet = AnimatorSet()
         animatorSet.play(heightAnimator)  // play heightAnimator with sunsetSky, also play heightAnimator before nightSky
             .with(sunsetSkyAnimator)
+            .with(heatAnimator)
             .before(nightSkyAnimator)
         animatorSet.start()
     }

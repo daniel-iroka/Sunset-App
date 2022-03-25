@@ -13,11 +13,12 @@
         android:background="@color/blue_sky">
 
         <ImageView
+            style="@style/sun_image"
             android:id="@+id/sun"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_gravity="center"
-            android:src="@drawable/sun"/>
+            android:src="@drawable/sun" />
     </FrameLayout>
 
     <View
