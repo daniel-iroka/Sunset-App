@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity() {
 
         val heatAnimator = ObjectAnimator
             .ofFloat(sunView, "rotation", sunYHeatStart, sunYHeatEnd)
-            .setDuration(900)
+            .setDuration(3500)
 
         // to get the values of the current pivotX and pivotY
         Log.i(TAG, "SunView pivotX ${sunView.pivotX} and pivotY is ${sunView.pivotY}")

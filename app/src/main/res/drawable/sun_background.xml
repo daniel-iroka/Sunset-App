@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle"
-    android:thickness="4dp"
+    android:shape="oval"
+    android:thickness="5dp"
     android:useLevel="false">
 
+    <gradient
+        android:angle="90"
+        android:startColor="@color/heat"
+        android:centerColor="#FFFFFF"
+        android:endColor="#55000066"/>
+
     <solid android:color="@color/heat" />
-    <stroke android:width="1dp"/>
     <corners android:topLeftRadius="10dp" android:topRightRadius="10dp"
         android:bottomLeftRadius="10dp" android:bottomRightRadius="10dp"/>
+
+    <size android:width="50dp"/>
+
+    <!-- Line around the edge of the sun -->
+    <stroke
+        android:dashWidth="5dp"
+        android:dashGap="10dp"
+        android:width="10dp"
+        android:color="@color/heat" />
 </shape>

@@ -15,4 +15,5 @@
     <color name="night_sky">#05192e</color>
     <color name="sea">#224869</color>
     <color name="heat">#FA8100</color>
+    <color name="heat_center">#FD890D</color>
 </resources>
