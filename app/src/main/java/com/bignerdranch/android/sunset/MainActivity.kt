@@ -3,12 +3,12 @@ package com.bignerdranch.android.sunset
 import android.animation.AnimatorSet
 import android.animation.ArgbEvaluator
 import android.animation.ObjectAnimator
-import android.animation.PropertyValuesHolder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.animation.AccelerateInterpolator
+import android.widget.ImageView
 import androidx.core.content.ContextCompat
 
 private const val TAG = "MainActivity"
@@ -17,6 +17,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var sceneView : View
     private lateinit var sunView: View
     private lateinit var skyView: View
+    private lateinit var sunReflection : View
+    private lateinit var seaView : View
+
 
     private var sunState : Boolean = true
 
@@ -40,8 +43,10 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()  // hide actionBar
 
         sceneView = findViewById(R.id.scene)
-        sunView = findViewById(R.id.sun)
-        skyView = findViewById(R.id.sky)
+        sunView = findViewById(R.id.imgSun)
+        skyView = findViewById(R.id.imgSky)
+        sunReflection = findViewById(R.id.imgSunReflection)
+        seaView = findViewById(R.id.imgSeaView)
 
         sceneView.setOnClickListener {
             animation()
@@ -86,20 +91,24 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
         // BASED ON A CHALLENGE.
         val sunYHeatStart = 0f
         val sunYHeatEnd = 360f
 
         val heatAnimator = ObjectAnimator
             .ofFloat(sunView, "rotation", sunYHeatStart, sunYHeatEnd)
-            .setDuration(3500)
-
-        // to get the values of the current pivotX and pivotY
-        Log.i(TAG, "SunView pivotX ${sunView.pivotX} and pivotY is ${sunView.pivotY}")
+            .setDuration(9000)
 
         heatAnimator.repeatCount = ObjectAnimator.INFINITE
-        heatAnimator.interpolator = AccelerateInterpolator()
+
+
+        // BASED ON A CHALLENGE. THIRD CHALLENGE
+        val refStart = sunReflection.top.toFloat()
+        val refEnd = skyView.height.toFloat()
+
+        val sunReflectAnimator = ObjectAnimator
+            .ofFloat(sunReflection, "y", refStart, refEnd)
+            .setDuration(3000)
 
 
         /** This is a simpler Implementation of animator.start() in which we will start all the animation at the same time. **/
@@ -107,6 +116,7 @@ class MainActivity : AppCompatActivity() {
         val animatorSet = AnimatorSet()
         animatorSet.play(heightAnimator)  // play heightAnimator with sunsetSky, also play heightAnimator before nightSky
             .with(sunsetSkyAnimator)
+            .with(sunReflectAnimator)
             .with(heatAnimator)
             .before(nightSkyAnimator)
         animatorSet.start()
@@ -137,11 +147,21 @@ class MainActivity : AppCompatActivity() {
             .setDuration(1500)
         blueSkyColor.setEvaluator(ArgbEvaluator())
 
+
+        val refStart = sunReflection.top.toFloat()
+        val refEnd = skyView.height.toFloat()
+
+        val sunReflectAnimator = ObjectAnimator
+            .ofFloat(sunReflection, "y", refEnd, refStart)
+            .setDuration(3000)
+
         val animatorSet2 = AnimatorSet()
         animatorSet2.play(heightAnimator2)  // play heightAnimator with sunsetSky, also play heightAnimator before blueSky
             .with(sunsetSkyAnimator2)
+            .with(sunReflectAnimator)
             .before(blueSkyColor)
 
         animatorSet2.start()
     }
+
 }
