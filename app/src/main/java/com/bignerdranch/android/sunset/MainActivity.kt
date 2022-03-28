@@ -5,13 +5,10 @@ import android.animation.ArgbEvaluator
 import android.animation.ObjectAnimator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.animation.AccelerateInterpolator
-import android.widget.ImageView
 import androidx.core.content.ContextCompat
 
-private const val TAG = "MainActivity"
 
 class MainActivity : AppCompatActivity() {
     private lateinit var sceneView : View
@@ -57,9 +54,11 @@ class MainActivity : AppCompatActivity() {
         sunState = if (sunState) {
             startAnimation()
             false // will reverse the value
+
         } else {
             reverseAnimation()
             true // and so on
+
         }
     }
 
@@ -102,9 +101,9 @@ class MainActivity : AppCompatActivity() {
         heatAnimator.repeatCount = ObjectAnimator.INFINITE
 
 
-        // BASED ON A CHALLENGE. THIRD CHALLENGE
+        // BASED ON A CHALLENGE. Sun reflection
         val refStart = sunReflection.top.toFloat()
-        val refEnd = skyView.height.toFloat()
+        val refEnd = seaView.height.toFloat()
 
         val sunReflectAnimator = ObjectAnimator
             .ofFloat(sunReflection, "y", refStart, refEnd)
@@ -122,7 +121,7 @@ class MainActivity : AppCompatActivity() {
         animatorSet.start()
     }
 
-    // Our reverse animation. COURSE CHALLENGE.
+    // Our reverse animation.
     private fun reverseAnimation() {
 
         /** Second animator set **/
@@ -149,7 +148,7 @@ class MainActivity : AppCompatActivity() {
 
 
         val refStart = sunReflection.top.toFloat()
-        val refEnd = skyView.height.toFloat()
+        val refEnd = seaView.height.toFloat()
 
         val sunReflectAnimator = ObjectAnimator
             .ofFloat(sunReflection, "y", refEnd, refStart)

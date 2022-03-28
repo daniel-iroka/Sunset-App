@@ -37,6 +37,6 @@
             android:layout_gravity="center"
             android:src="@drawable/sun_reflection"
             android:rotation="180"
-            android:layout_marginBottom="9dp"/>
+            android:layout_marginBottom="20dp"/>
     </FrameLayout>
 </LinearLayout>
