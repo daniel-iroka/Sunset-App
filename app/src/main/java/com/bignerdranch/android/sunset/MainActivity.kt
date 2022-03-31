@@ -9,14 +9,12 @@ import android.view.View
 import android.view.animation.AccelerateInterpolator
 import androidx.core.content.ContextCompat
 
-
 class MainActivity : AppCompatActivity() {
     private lateinit var sceneView : View
     private lateinit var sunView: View
     private lateinit var skyView: View
     private lateinit var sunReflection : View
     private lateinit var seaView : View
-
 
     private var sunState : Boolean = true
 
