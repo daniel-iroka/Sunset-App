@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
 
     private var sunState : Boolean = true
 
+    // TODO - TRY AND IMPROVE THE ICON LOOK OF THIS APP.
 
     private val blueSkyColor: Int by lazy {
         ContextCompat.getColor(this, R.color.blue_sky)
@@ -29,7 +30,6 @@ class MainActivity : AppCompatActivity() {
     private val nightSkyColor: Int by lazy {
         ContextCompat.getColor(this, R.color.night_sky)
     }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
